@@ -20,7 +20,8 @@
   <body>
     <div class="parent"> 
         <div id="oss" class="block">
-            <canvas id="canvas"  width="600px" height="600px"></canvas>
+            <canvas id="canvas2"  width="600px" height="600px"></canvas>
+            <canvas id="canvas1"  width="600px" height="600px"></canvas>
         </div>    
     <!-- Первая карточка -->
     <div class="container">
@@ -36,12 +37,8 @@
     <button class="btn btn-outline-success btn-sm" onclick="onGadjet()">ВКЛ</button>
     <button class="btn btn-outline-success btn-sm" onclick="offGadjet()">ВИКЛ</button>
     <div class="form-check form-check-inline m-4 form-row text-center">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-  <label class="form-check-label" for="inlineRadio1"></label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-  <label class="form-check-label" for="inlineRadio2"></label>
 </div>
     </div>
      </div>
@@ -55,43 +52,22 @@
     <label for="inputPassword2" class="sr-only">Розгортка</label>
     <div class="p-3 form-row text-center">
     <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"  onclick="radioButton_Handler();" value = 6>
   <label class="form-check-label" for="inlineRadio1">6с</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"  checked onclick="radioButton_Handler();" value = 12>
   <label class="form-check-label" for="inlineRadio2">3с</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" onclick="radioButton_Handler();" value = 15>
   <label class="form-check-label" for="inlineRadio3">1,5с</label>
-</div>
-<label class="switch">
-    <input type="checkbox">
-    <span class="slider"></span>
+</div> 
+<button class="btn btn-outline-success btn-sm" onclick="onGadjet()">ВКЛ</button>
+<button class="btn btn-outline-success btn-sm" onclick="offGadjet()">ВИКЛ</button>
   </label>
      </div>
      </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option6">
-  <label class="form-check-label" for="inlineRadio3">Bx1</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option7">
-  <label class="form-check-label" for="inlineRadio3">Bx2</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option8">
-  <label class="form-check-label" for="inlineRadio3">Bx3</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option9">
-  <label class="form-check-label" for="inlineRadio3">Bx4</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option10" checked>
-  <label class="form-check-label" for="inlineRadio3"></label>
-</div>
       </div>
        </div>
     <!-- Дополнительный скрипт -->

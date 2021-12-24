@@ -83,3 +83,14 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+canvas#canvas1 {
+  position: relative;
+  z-index: -1;
+}
+canvas#canvas2{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}

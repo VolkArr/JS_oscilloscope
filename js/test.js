@@ -97,7 +97,7 @@ function draw(lineARRAY, ctx, canvas, flag){
             ctx.lineTo(lineARRAY.currentX, lineARRAY.lastY);
             ctx.stroke();
             let canvasPos = canvas.getBoundingClientRect();
-            let x = canvasPos.left - canvas.width - 125;
+            let x = canvasPos.left - canvas.width - 225;
             if(tmp_x >= (x + canvas.width)){
                 tmp_x = x;
             }
@@ -131,9 +131,11 @@ function Gadjet(HZ,canvasID){
     this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasID));
     this.ctx = this.canvas.getContext('2d');
     let canvasPos = this.canvas.getBoundingClientRect();
-    let x = canvasPos.left - this.canvas.width - 125;
+    let x = canvasPos.left - this.canvas.width - 225;
     let y = canvasPos.top;
     let indent = this.canvas.height/4;
+    this.gridScale_x = 15;
+    this.gridScale_y = 15;
     // ------------
         this.isRunning = 0;
         this.intervalID;
@@ -148,25 +150,24 @@ function Gadjet(HZ,canvasID){
     // ------------
     this.start = function(){
         this.intervalID = setInterval(()=>{ // анимацию я сделал интервалом 
-            drawGrid(20,20,this.ctx, this.canvas);
+            drawGrid(this.gridScale_x, this.gridScale_y);
             if(this.isRunning == 1){
                 let tmp_emit = this.imp.emit();
                 let tmp_ctr = this.ctr.count();
                 let emits = [];
                 emits.unshift(tmp_ctr[2], tmp_ctr[1], tmp_ctr[0], tmp_emit);
-                emitHandler(emits,lineARRAY,50,this.ctx,this.canvas);
-                console.log(this.imp.HZ);  
+                emitHandler(emits,lineARRAY,50,this.ctx,this.canvas); 
             }       
         }, (20000/(this.imp.HZ * 100)))
     }
 }
 
 
-function drawGrid(Xnum, Ynum, Tctx, Tcanvas){
+function drawGrid(Xnum, Ynum){
+    let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas2'));
+    let ctx = canvas.getContext('2d');
     let scaleX = Xnum;
     let scaleY = Ynum;
-    var ctx = Tctx;
-    var canvas = Tcanvas;
     let gridWsize = canvas.width/Xnum;
     let gridHsize = canvas.height/Ynum;
     ctx.strokeStyle = "black";
@@ -216,9 +217,20 @@ function onGadjet(){
     test.isRunning = 1;
 }
 
+function radioButton_Handler(){
+    let radio = document.getElementsByName('inlineRadioOptions');
+    for(let i = 0; i < radio.length; i++){
+        if(radio[i].checked) {
+            test.gridScale_x = radio[i].value;
+            test.gridScale_y = radio[i].value;
+            let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas2'));
+            let ctx = canvas.getContext('2d');
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+        }
+    }
+}
 
-
-var test = new Gadjet(5,'canvas'); // передаем частоту и id canvas
+var test = new Gadjet(5,'canvas1'); // передаем частоту и id canvas
 test.start();
 
 // todo. обработчик кнопки по нажатию кнопки выключать подачу или включать
