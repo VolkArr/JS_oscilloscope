@@ -97,7 +97,7 @@ function draw(lineARRAY, ctx, canvas, flag){
             ctx.lineTo(lineARRAY.currentX, lineARRAY.lastY);
             ctx.stroke();
             let canvasPos = canvas.getBoundingClientRect();
-            let x = canvasPos.left - canvas.width - 225;
+            let x = canvasPos.left - canvas.width
             if(tmp_x >= (x + canvas.width)){
                 tmp_x = x;
             }
@@ -106,7 +106,7 @@ function draw(lineARRAY, ctx, canvas, flag){
                 ctx.clearRect(tmp_x, lineARRAY.lastY, 100, 55);
             } 
             else ctx.clearRect(tmp_x, lineARRAY.firstY, 10, -200);
-            let tmp = [tmp_x, lineARRAY.lastY];
+            var tmp = [tmp_x, lineARRAY.lastY];
             return tmp;
 }
 
@@ -131,7 +131,7 @@ function Gadjet(HZ,canvasID){
     this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasID)); // холст канвас с линиями
     this.ctx = this.canvas.getContext('2d'); // рисуем мы засчет контекста
     let canvasPos = this.canvas.getBoundingClientRect(); // берем позицию канваса относительно экрана
-    let x = canvasPos.left - this.canvas.width - 225; // считаем x и y для старта отрисовки
+    let x = canvasPos.left - this.canvas.width; // считаем x и y для старта отрисовки
     let y = canvasPos.top;
     let indent = this.canvas.height/4; // отступ на который будем поднимать
     this.gridScale_x = 15; // переменные отвечают за развертку фона
@@ -172,12 +172,12 @@ function drawGrid(Xnum, Ynum){ // отрисовка заднего фона
     GridLine(canvas.width, canvas.height, 0, canvas.height,5,ctx);
     GridLine(0, canvas.height, 0,0,5,ctx);
     ctx.strokeStyle = "grey";
-    for(let i = 1; i < Xnum; i++){
-        let curGridWidth = canvas.width/Xnum*i;
+    for(var i = 1; i < Xnum; i++){
+        var curGridWidth = canvas.width/Xnum*i;
         GridLine(curGridWidth,0,curGridWidth,canvas.height,1,ctx);
     }
-    for (let i = 1; i < Ynum; i++){
-        let curGridHeight = canvas.height/Ynum*i;
+    for (var i = 1; i < Ynum; i++){
+        var curGridHeight = canvas.height/Ynum*i;
         GridLine(0, curGridHeight, canvas.width,curGridHeight, 1,ctx);
     }
 }
