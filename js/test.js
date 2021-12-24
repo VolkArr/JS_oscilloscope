@@ -1,4 +1,6 @@
 
+
+
 function impuls(HZ){
     this.data = 0;
     this.HZ = HZ;
@@ -146,6 +148,7 @@ function Gadjet(HZ,canvasID){
     // ------------
     this.start = function(){
         this.intervalID = setInterval(()=>{ // анимацию я сделал интервалом 
+            drawGrid(20,20,this.ctx, this.canvas);
             if(this.isRunning == 1){
                 let tmp_emit = this.imp.emit();
                 let tmp_ctr = this.ctr.count();
@@ -158,7 +161,38 @@ function Gadjet(HZ,canvasID){
     }
 }
 
-var test = new Gadjet(5,'canvas'); // передаем частоту и id canvas
+
+function drawGrid(Xnum, Ynum, Tctx, Tcanvas){
+    let scaleX = Xnum;
+    let scaleY = Ynum;
+    var ctx = Tctx;
+    var canvas = Tcanvas;
+    let gridWsize = canvas.width/Xnum;
+    let gridHsize = canvas.height/Ynum;
+    ctx.strokeStyle = "black";
+    GridLine(0,0,canvas.width,0, 5, ctx);
+    GridLine(canvas.width,0,canvas.width,canvas.height,5,ctx);
+    GridLine(canvas.width, canvas.height, 0, canvas.height,5,ctx);
+    GridLine(0, canvas.height, 0,0,5,ctx);
+    ctx.strokeStyle = "grey";
+    for(var i = 1; i < Xnum; i++){
+        var curGridWidth = canvas.width/Xnum*i;
+        GridLine(curGridWidth,0,curGridWidth,canvas.height,1,ctx);
+    }
+    for (var i = 1; i < Ynum; i++){
+        var curGridHeight = canvas.height/Ynum*i;
+        GridLine(0, curGridHeight, canvas.width,curGridHeight, 1,ctx);
+    }
+}
+
+function GridLine (x, y, dx, dy, r, Tctx) {
+    var ctx = Tctx;
+    ctx.beginPath();
+    ctx.lineWidth = r;
+    ctx.moveTo(x, y);
+    ctx.lineTo(dx, dy);
+    ctx.stroke();
+}
 
 function changeHZ(){
     clearInterval(test.intervalID);
@@ -183,6 +217,8 @@ function onGadjet(){
 }
 
 
+
+var test = new Gadjet(5,'canvas'); // передаем частоту и id canvas
 test.start();
 
 // todo. обработчик кнопки по нажатию кнопки выключать подачу или включать
