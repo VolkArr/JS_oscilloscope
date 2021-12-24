@@ -1,0 +1,31 @@
+.parent {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 100;
+    left: 0;
+}
+
+.block {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 3%;
+    left: 40%; 
+}
+
+.grid-gradient {
+    background:
+      linear-gradient(
+      gray, transparent 1px
+      ),
+      linear-gradient(
+      90deg,
+      gray, transparent 1px
+      );
+    background-size: 25px 25px;
+    background-position: top;
+    border: 1px solid green;
+    }
+
+canvas{outline:1px solid green;}
