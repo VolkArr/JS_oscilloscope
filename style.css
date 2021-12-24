@@ -14,6 +14,7 @@
     left: 40%; 
 }
 
+
 .grid-gradient {
     background:
       linear-gradient(
@@ -29,3 +30,7 @@
     }
 
 canvas{outline:1px solid green;}
+label#textbox{
+    border: 1px solid green;
+    margin-top: 500;
+}

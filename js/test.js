@@ -11,6 +11,9 @@ function impuls(HZ){
             this.data--;
             return this.data;
         }
+    },
+    this.change = function(HZ){
+        this.HZ = HZ;
     }
 } // В целом это генератор импульса - когда мы вызываем emit у обьекта - то мы получаем либо 0 либо 1
 
@@ -78,7 +81,7 @@ class line{
     }
 }
 
-function draw(lineARRAY, ctx, canvas){
+function draw(lineARRAY, ctx, canvas, flag){
             ctx.beginPath(); // тут начинается логика отрисовки линий 
             let tmp_x;
             ctx.lineWidth = 5;
@@ -94,9 +97,13 @@ function draw(lineARRAY, ctx, canvas){
             let canvasPos = canvas.getBoundingClientRect();
             let x = canvasPos.left - canvas.width - 125;
             if(tmp_x >= (x + canvas.width)){
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 tmp_x = x;
             }
+            if(flag == 0){
+                ctx.clearRect(tmp_x, lineARRAY.lastY, 100, -155);
+                ctx.clearRect(tmp_x, lineARRAY.lastY, 100, 55);
+            } 
+            else ctx.clearRect(tmp_x, lineARRAY.firstY, 10, -200);
             var tmp = [tmp_x, lineARRAY.lastY];
             return tmp;
 }
@@ -106,11 +113,11 @@ function emitHandler(emit, lineARRAY, indentY, ctx, canvas){ // массив с�
     for(let i = 0; i < 4; i++){ // в функцию draw, так как lineARRAY это массив обьектов - то мы его скопировали по ссылке, поэтому мы его можем менять
         if(emit[i] == 1){
             lineARRAY[i].lastY = lineARRAY[i].firstY + indentY;
-            tmp = draw(lineARRAY[i], ctx, canvas);
+            tmp = draw(lineARRAY[i], ctx, canvas, i);
         }
         else{
             lineARRAY[i].lastY = lineARRAY[i].firstY;
-            tmp = draw(lineARRAY[i],ctx, canvas);
+            tmp = draw(lineARRAY[i],ctx, canvas, i);
         }
         lineARRAY[i].currentX = tmp[0];
         lineARRAY[i].currentY = tmp[1];
@@ -127,6 +134,7 @@ function Gadjet(HZ,canvasID){
     let indent = this.canvas.height/4;
     // ------------
         this.isRunning = 0;
+        this.intervalID;
     // ------------
     this.ctr = new counter();
     this.imp = new impuls(HZ);
@@ -137,25 +145,44 @@ function Gadjet(HZ,canvasID){
     let lineARRAY = [this.firstLine, this.secondLine, this.thirdLine, this.fourLine];
     // ------------
     this.start = function(){
-        setInterval(()=>{ // анимацию я сделал интервалом 
+        this.intervalID = setInterval(()=>{ // анимацию я сделал интервалом 
             if(this.isRunning == 1){
                 let tmp_emit = this.imp.emit();
                 let tmp_ctr = this.ctr.count();
                 let emits = [];
                 emits.unshift(tmp_ctr[2], tmp_ctr[1], tmp_ctr[0], tmp_emit);
-                emitHandler(emits,lineARRAY,50,this.ctx,this.canvas);   
+                emitHandler(emits,lineARRAY,50,this.ctx,this.canvas);
+                console.log(this.imp.HZ);  
             }       
-        }, ((this.imp.HZ * 100)/60))
+        }, (20000/(this.imp.HZ * 100)))
     }
 }
 
-function gadjetControl(){
-    if(test.isRunning == 1) test.isRunning = 0;
-    else test.isRunning = 1;
+var test = new Gadjet(5,'canvas'); // передаем частоту и id canvas
+
+function changeHZ(){
+    clearInterval(test.intervalID);
+    if(input.value > 20) input.value = 20;
+    if(input.value <= 1) input.value = 1;
+    test.imp.change(input.value);
+    test.start();
+}
+
+function offGadjet(){
+    test.isRunning = 0;
     test.ctx.clearRect(0, 0, test.canvas.width, test.canvas.height);
 }
 
-var test = new Gadjet(20,'canvas'); // передаем частоту и id canvas
+
+function onGadjet(){
+    if(test.imp.HZ <= 0){
+        alert("Укажите частоту от 0 до 20!");
+        return false;
+    } 
+    test.isRunning = 1;
+}
+
+
 test.start();
 
 // todo. обработчик кнопки по нажатию кнопки выключать подачу или включать

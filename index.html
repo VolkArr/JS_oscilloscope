@@ -1,21 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Изучение JS</title>
-    <link rel = "stylesheet" type="text/css" href="style.css">
-    
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
-<body >
+    <!-- Подключение иконки -->
+    <link rel="shortcut icon" href="divertimento.ico" type="image/start">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <!-- Подключение отдельного CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title> JS_oscilloscope</title>
+  </head>
+
+  <body>
     <div class="parent"> 
-        <button type="button"  onclick="gadjetControl();">Нажми меня нежно </button>
         <div id="oss" class="block">
-            <canvas id="canvas" class="grid-gradient" width="600" height="600"></canvas>
-            <script src="test.js"></script>
+            <canvas id="canvas" class="grid-gradient" width="600px" height="600px"></canvas>
         </div>    
+    <!-- Первая карточка -->
+    <div class="container">
+    <div class="row">
+    <div class="col-sm">
+    <div class="card m-4 border border-success shadow p-1 mb-5 bg-white rounded" style="width: 14rem; height: 19rem;">
+    <div class="card-body">
+    <h5 class="p-1 mb-2 bg-success rounded-pill text-white card-title text-center">Генератор <br> імпульсів</h5>
+    <div class="text-center form-control">
+    <label for="inputPassword2" class="sr-only">Частота ГЦ:</label>
+    <input type="number" onchange="changeHZ()" position="center" class="form-control form-control-sm" id="input" placeholder="">
+    <div class="p-3 form-row text-center">
+    <button class="btn btn-outline-success btn-sm" onclick="onGadjet()">ВКЛ</button>
+    <button class="btn btn-outline-success btn-sm" onclick="offGadjet()">ВИКЛ</button>
+    <div class="form-check form-check-inline m-4 form-row text-center">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1"></label>
 </div>
-</body>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2"></label>
+</div>
+    </div>
+     </div>
+       </div>
+       <label id="textbox" for="inputPassword2" class="sr-only">Засобами мов HTML, CSS та JavaScript з залученням технології Canvas створити Web-додаток для моделювання в реальному часі осцилограм трьохрозрядних двійкових лічильників.  Забезпечити реальний діапазон частот генератора 0 – 20 Гц:</label>
+      <!-- Вторая карточка --> 
+    <div class="col-sm">
+    <div class="card m-4 border border-success shadow p-1 mb-5 bg-white rounded" style="width: 19rem; height: 13rem;">
+    <div class="card-body">
+    <div class="text-center form-control">
+    <label for="inputPassword2" class="sr-only">Розгортка</label>
+    <div class="p-3 form-row text-center">
+    <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">6с</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">3с</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <label class="form-check-label" for="inlineRadio3">1,5с</label>
+</div>
+<div class="form-check form-check-inline">
+    <button class="btn btn-outline-success btn-sm" onclick="impuls()">ВКЛ</button>
+</div>
+<div class="form-check form-check-inline">
+    <button class="btn btn-outline-success btn-sm" onclick="verify()">ВИКЛ</button>
+</div>
+     </div>
+     </div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option6">
+  <label class="form-check-label" for="inlineRadio3">Bx1</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option7">
+  <label class="form-check-label" for="inlineRadio3">Bx2</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option8">
+  <label class="form-check-label" for="inlineRadio3">Bx3</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option9">
+  <label class="form-check-label" for="inlineRadio3">Bx4</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option10" checked>
+  <label class="form-check-label" for="inlineRadio3"></label>
+</div>
+      </div>
+       </div>
+    <!-- Дополнительный скрипт -->
+    <!-- Bootstrap в связке с Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  </body>
+
+    <!-- Подключение отдельного скрипта -->
+   <script src="js/test.js"></script>
 </html>
