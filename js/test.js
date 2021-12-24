@@ -5,7 +5,7 @@ function impuls(HZ){
     this.data = 0;
     this.HZ = HZ;
     this.emit = function (){
-        if(this.data == 0){
+        if(this.data === 0){
             this.data++;
             return this.data;
         }
@@ -25,7 +25,7 @@ function counter(){
     this.dataHandler = 0;
 
     this.count = function(){
-        if(this.checkUP == true){
+        if(this.checkUP === true){ // проверка байтовой маски( сброс счетчика)
             let tmp = this.data;
             this.down();
             return tmp;
@@ -34,13 +34,12 @@ function counter(){
         this.dataHandler++;
         let i = 0;
         let tempDataHandler = this.dataHandler;
-        while(tempDataHandler >= 1){
+        while(tempDataHandler >= 1){ // разложение десятичного числа в двоичную систему 
             let tmp_var = tempDataHandler%2;
             tempDataHandler = Math.floor(tempDataHandler/2);
             this.data[i] = tmp_var;
             i++;
-            if(i > 2) break;
-            
+            if(i > 2) break;    
         }
 
         return tmp;
@@ -107,7 +106,7 @@ function draw(lineARRAY, ctx, canvas, flag){
                 ctx.clearRect(tmp_x, lineARRAY.lastY, 100, 55);
             } 
             else ctx.clearRect(tmp_x, lineARRAY.firstY, 10, -200);
-            var tmp = [tmp_x, lineARRAY.lastY];
+            let tmp = [tmp_x, lineARRAY.lastY];
             return tmp;
 }
 
@@ -129,29 +128,29 @@ function emitHandler(emit, lineARRAY, indentY, ctx, canvas){ // массив с�
 
 function Gadjet(HZ,canvasID){ 
     // Эта структура представляет собой сам прибор, в него входит canvas, генератор и счетчики
-    this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasID));
-    this.ctx = this.canvas.getContext('2d');
-    let canvasPos = this.canvas.getBoundingClientRect();
-    let x = canvasPos.left - this.canvas.width - 225;
+    this.canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasID)); // холст канвас с линиями
+    this.ctx = this.canvas.getContext('2d'); // рисуем мы засчет контекста
+    let canvasPos = this.canvas.getBoundingClientRect(); // берем позицию канваса относительно экрана
+    let x = canvasPos.left - this.canvas.width - 225; // считаем x и y для старта отрисовки
     let y = canvasPos.top;
-    let indent = this.canvas.height/4;
-    this.gridScale_x = 15;
-    this.gridScale_y = 15;
+    let indent = this.canvas.height/4; // отступ на который будем поднимать
+    this.gridScale_x = 15; // переменные отвечают за развертку фона
+    this.gridScale_y = 15; 
     // ------------
-        this.isRunning = 0;
-        this.intervalID;
+        this.isRunning = 0; // запущенно приложение или нет
+        this.intervalID; // id интервала в котором идет наша анимация 
     // ------------
-    this.ctr = new counter();
+    this.ctr = new counter(); // вделение памяти под обьекты ( счетчики, генератор импульсов)
     this.imp = new impuls(HZ);
-    this.firstLine = new line(x, y+(indent*0), y+(indent*0), y+(indent*0));
+    this.firstLine = new line(x, y+(indent*0), y+(indent*0), y+(indent*0)); // обьекты линий - по идее не так делать надо было, но оно работает  и хорошо
     this.secondLine = new line(x, y+(indent*1), y+(indent*1), y+(indent*1));
     this.thirdLine = new line(x, y+(indent*2), y+(indent*2), y+(indent*2));
     this.fourLine = new line(x, y+(indent*3), y+(indent*3), y+(indent*3));
-    let lineARRAY = [this.firstLine, this.secondLine, this.thirdLine, this.fourLine];
+    let lineARRAY = [this.firstLine, this.secondLine, this.thirdLine, this.fourLine]; // массив с которым мы будем работаить в дальнейшем 
     // ------------
-    this.start = function(){
+    this.start = function(){ // функция, в которой мы запускаем интервал, ID которого записывается в нашу переменную 
         this.intervalID = setInterval(()=>{ // анимацию я сделал интервалом 
-            drawGrid(this.gridScale_x, this.gridScale_y);
+            drawGrid(this.gridScale_x, this.gridScale_y); // интервал представляет из себя лямбду
             if(this.isRunning == 1){
                 let tmp_emit = this.imp.emit();
                 let tmp_ctr = this.ctr.count();
@@ -159,30 +158,26 @@ function Gadjet(HZ,canvasID){
                 emits.unshift(tmp_ctr[2], tmp_ctr[1], tmp_ctr[0], tmp_emit);
                 emitHandler(emits,lineARRAY,50,this.ctx,this.canvas); 
             }       
-        }, (20000/(this.imp.HZ * 100)))
+        }, (20000/(this.imp.HZ * 100))) // 20000 делить на HZ нужно, что бы инвертировать значение так как 1 - самое быстрое, а 20 медленно. Нам нужно наоборот
     }
 }
 
 
 function drawGrid(Xnum, Ynum){ // отрисовка заднего фона
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas2'));
-    let ctx = canvas.getContext('2d');
-    let scaleX = Xnum;
-    let scaleY = Ynum;
-    let gridWsize = canvas.width/Xnum;
-    let gridHsize = canvas.height/Ynum;
+    let ctx = canvas.getContext('2d');  
     ctx.strokeStyle = "black";
     GridLine(0,0,canvas.width,0, 5, ctx);
     GridLine(canvas.width,0,canvas.width,canvas.height,5,ctx);
     GridLine(canvas.width, canvas.height, 0, canvas.height,5,ctx);
     GridLine(0, canvas.height, 0,0,5,ctx);
     ctx.strokeStyle = "grey";
-    for(var i = 1; i < Xnum; i++){
-        var curGridWidth = canvas.width/Xnum*i;
+    for(let i = 1; i < Xnum; i++){
+        let curGridWidth = canvas.width/Xnum*i;
         GridLine(curGridWidth,0,curGridWidth,canvas.height,1,ctx);
     }
-    for (var i = 1; i < Ynum; i++){
-        var curGridHeight = canvas.height/Ynum*i;
+    for (let i = 1; i < Ynum; i++){
+        let curGridHeight = canvas.height/Ynum*i;
         GridLine(0, curGridHeight, canvas.width,curGridHeight, 1,ctx);
     }
 }
