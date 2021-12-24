@@ -83,6 +83,7 @@ class line{
     }
 }
 
+// функция выполняют всю логику отрисовки линий на осцилограффе - делает проверки и вывод на экран осцилограффа 
 function draw(lineARRAY, ctx, canvas, flag){
             ctx.beginPath(); // тут начинается логика отрисовки линий 
             let tmp_x;
@@ -163,7 +164,7 @@ function Gadjet(HZ,canvasID){
 }
 
 
-function drawGrid(Xnum, Ynum){
+function drawGrid(Xnum, Ynum){ // отрисовка заднего фона
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas2'));
     let ctx = canvas.getContext('2d');
     let scaleX = Xnum;
@@ -186,7 +187,7 @@ function drawGrid(Xnum, Ynum){
     }
 }
 
-function GridLine (x, y, dx, dy, r, Tctx) {
+function GridLine (x, y, dx, dy, r, Tctx) { // непосредственно функция, которая рисует задний фон
     var ctx = Tctx;
     ctx.beginPath();
     ctx.lineWidth = r;
@@ -195,7 +196,9 @@ function GridLine (x, y, dx, dy, r, Tctx) {
     ctx.stroke();
 }
 
-function changeHZ(){
+
+// тут пошли эвенты которые взаимодействуют с html кодом. В основном с эвентом onclick и они зачастую говорят сами за себя
+function changeHZ(){ 
     clearInterval(test.intervalID);
     if(input.value > 20) input.value = 20;
     if(input.value <= 1) input.value = 1;
@@ -230,7 +233,7 @@ function radioButton_Handler(){
     }
 }
 
-var test = new Gadjet(5,'canvas1'); // передаем частоту и id canvas
-test.start();
+var test = new Gadjet(5,'canvas1'); // передаем частоту и id оновного canvas
+test.start(); // функция запускает работу всего устройва 
 
 // todo. обработчик кнопки по нажатию кнопки выключать подачу или включать
