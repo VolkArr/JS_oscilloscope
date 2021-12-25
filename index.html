@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Подключение иконки -->
+    <link rel="shortcut icon" href="divertimento.ico" type="image/start">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <!-- Подключение отдельного CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <title> JS_logicELEMENT</title>
+  </head>
+
+  <body>
+    <div class="parent"> 
+        <div  class="block">
+            <canvas id="canvas1"></canvas>
+            <canvas id="canvas2"></canvas>
+        </div>
+    </div>
+
+    <!-- Первая карточка -->
+    <div class="container">
+    <div class="card m-4 border border-success shadow p-1 mb-5 bg-white rounded" style="width: 14rem; height: 19rem;">
+    <div class="card-body">
+    <h5 class="p-1 mb-2 bg-success  text-white card-title text-center">Генератор <br> імпульсів 1</h5>
+    <div class="text-center form-control">
+    <label for="inputPassword2" class="sr-only">Частота ГЦ:</label>
+    <input type="number" onchange="changeHZ1()" position="center" class="form-control form-control-sm" id="input1" placeholder="">
+    <div class="p-3 form-row text-center">
+    <button class="btn btn-outline-success btn-sm" onclick="onGadjet()">ВКЛ</button>
+    <button class="btn btn-outline-success btn-sm" onclick="offGadjet()">ВИКЛ</button>
+    <div class="form-check form-check-inline m-4 form-row text-center">
+</div>
+<div class="form-check form-check-inline">
+</div>
+    </div>
+     </div>
+       </div>
+        <label for="inputPassword2" class="sr-only">Розгортка</label>
+        <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"  onclick="radioButton_Handler();" value = 1>
+      <label class="form-check-label" for="inlineRadio1">6с</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"  checked onclick="radioButton_Handler();" value = 2>
+      <label class="form-check-label" for="inlineRadio2">3с</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" onclick="radioButton_Handler();" value = 3>
+      <label class="form-check-label" for="inlineRadio3">1,5с</label>
+    </div> 
+      <!-- Вторая карточка --> 
+      <div class="container">
+        <div class="row">
+        <div class="col-sm">
+        <div class="card m-4 border border-success shadow p-1 mb-5 bg-white rounded" style="width: 14rem; height: 19rem;">
+        <div class="card-body">
+        <h5 class="p-1 mb-2 bg-success   text-white card-title text-center">Генератор <br> імпульсів 2</h5>
+        <div class="text-center form-control">
+        <label for="inputPassword2" class="sr-only">Частота ГЦ:</label>
+        <input type="number" onchange="changeHZ2()" position="center" class="form-control form-control-sm" id="input2" placeholder="">
+        <div class="p-3 form-row text-center">
+        <button class="btn btn-outline-success btn-sm" onclick="onGadjet()">ВКЛ</button>
+        <button class="btn btn-outline-success btn-sm" onclick="offGadjet()">ВИКЛ</button>
+        <div class="form-check form-check-inline m-4 form-row text-center">
+    </div>
+    <div class="form-check form-check-inline">
+    </div>
+        </div>
+         </div>
+           </div>
+    
+    <!-- Дополнительный скрипт -->
+    <!-- Bootstrap в связке с Popper -->
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  </body>
+</html>
