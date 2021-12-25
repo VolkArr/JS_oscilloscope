@@ -17,7 +17,7 @@ class impuls{ // генератор импульса, который генер�
         this.HZ = HZ;
     }
     setHZ(HZ){
-        this.HZ = HZ;
+        this.HZ = 21-HZ;
     }
     emit(){
         let tmp = [];
@@ -109,7 +109,7 @@ function draw(lineARRAY){
     cnv.ctx.moveTo(tmp_x, lineARRAY.lastY);
     cnv.ctx.lineTo(lineARRAY.currentX, lineARRAY.lastY);
     cnv.ctx.stroke();
-    if(tmp_x >= (cnv.x + cnv.canvas.width)){
+    if(tmp_x >= (cnv.x + cnv.canvas.width+500)){
         tmp_x = cnv.x;
     }
     cnv.ctx.clearRect(tmp_x, lineARRAY.lastY, 50, -100);
@@ -219,9 +219,9 @@ function radioButton_Handler(){
 }
 
 // выделение памяти под обьекты
-let cnv = new Canvas(CNST_width*1.5, CNST_height, 'canvas1');
-let cnv2 = new Canvas(CNST_width*1.5, CNST_height, 'canvas2');
-let gadjet = new Gadjet(15,3);
+let cnv = new Canvas(CNST_width*3, CNST_height, 'canvas1');
+let cnv2 = new Canvas(CNST_width*3, CNST_height, 'canvas2');
+let gadjet = new Gadjet(30,3);
 let gen1 = new impuls(input1.value);
 let gen2 = new impuls(input2.value);
 drawGrid(15,15);
